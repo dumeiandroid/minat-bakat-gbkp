@@ -294,23 +294,8 @@
     .adm-empty{text-align:center;padding:50px 20px;color:rgba(255,255,255,.28);}
     .adm-empty .ee{font-size:2.4rem;margin-bottom:8px;}
 
-    /* Admin Tabs */
-    .adm-tabs{display:flex;gap:6px;margin-bottom:22px;border-bottom:1px solid rgba(201,148,26,.15);padding-bottom:0;}
-    .adm-tab{background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.35);font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;padding:10px 18px;cursor:pointer;transition:all .2s;letter-spacing:.05em;margin-bottom:-1px;}
-    .adm-tab:hover{color:rgba(255,255,255,.65);}
-    .adm-tab.active{color:var(--gold-light);border-bottom-color:var(--gold);}
-    .adm-tab-panel{display:none;}
-    .adm-tab-panel.active{display:block;}
-
-    /* Visitor stats row */
-    .adm-vstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px;}
-    .adm-vstat{background:rgba(255,255,255,.04);border:1px solid rgba(124,200,255,.15);border-radius:12px;padding:16px 14px;text-align:center;}
-    .adm-vstat .vs-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#7ec8ff;display:block;line-height:1;}
-    .adm-vstat .vs-lbl{font-size:.68rem;color:rgba(255,255,255,.35);margin-top:4px;letter-spacing:.08em;text-transform:uppercase;}
-
     /* Responsive */
     @media(max-width:768px){
-      .adm-vstats{grid-template-columns:1fr 1fr;}
       .about-grid,.info-cards,.syarat-grid,.cara-grid{grid-template-columns:1fr;}
       .about-img-badge{bottom:10px;right:10px;}
       .form-row{grid-template-columns:1fr;}
@@ -694,7 +679,7 @@
       <div class="adm-topbar-left">
         <span class="adm-logo-sm">📋</span>
         <div>
-          <h2>Dashboard Admin</h2>
+          <h2>Dashboard Pendaftaran</h2>
           <p>Tes Minat &amp; Bakat · GBKP Runggun Bambu Raya · 07 Maret 2026</p>
         </div>
       </div>
@@ -704,112 +689,49 @@
       </div>
     </div>
 
-    <!-- TABS -->
-    <div class="adm-tabs">
-      <button class="adm-tab active" id="tabBtnPeserta" onclick="switchTab('peserta')">📋 Pendaftar</button>
-      <button class="adm-tab" id="tabBtnKunjungan" onclick="switchTab('kunjungan')">👁 Kunjungan</button>
-    </div>
-
-    <!-- TAB: PENDAFTAR -->
-    <div class="adm-tab-panel active" id="panelPeserta">
-      <!-- Stats -->
-      <div class="adm-stats">
-        <div class="adm-stat">
-          <span class="as-num" id="stTotal">—</span>
-          <div class="as-lbl">Total Pendaftar</div>
-        </div>
-        <div class="adm-stat green">
-          <span class="as-num" id="stSisa">—</span>
-          <div class="as-lbl">Sisa Kuota</div>
-        </div>
-        <div class="adm-stat blue">
-          <span class="as-num" id="stHP">—</span>
-          <div class="as-lbl">HP + Kuota Siap</div>
-        </div>
+    <!-- Stats -->
+    <div class="adm-stats">
+      <div class="adm-stat">
+        <span class="as-num" id="stTotal">—</span>
+        <div class="as-lbl">Total Pendaftar</div>
       </div>
-      <!-- Toolbar -->
-      <div class="adm-toolbar">
-        <h3>Daftar Peserta</h3>
-        <div class="adm-toolbar-right">
-          <input type="text" class="adm-search" id="admSearch" placeholder="🔍 Cari nama / sekolah..." oninput="filterTable()"/>
-          <button class="btn-refresh" onclick="loadPeserta()"><span class="ri" id="ri">↻</span> Refresh</button>
-          <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
-        </div>
+      <div class="adm-stat green">
+        <span class="as-num" id="stSisa">—</span>
+        <div class="as-lbl">Sisa Kuota</div>
       </div>
-      <!-- Table -->
-      <div class="tbl-wrap">
-        <div class="adm-loading" id="admLoading"><div class="ld-ring"></div>Memuat data...</div>
-        <div id="admTableWrap" style="display:none;overflow-x:auto">
-          <table class="adm-tbl" id="admTable">
-            <thead>
-              <tr>
-                <th>#</th><th>Nama Lengkap</th><th>L/P</th><th>Kelas</th>
-                <th>Sekolah</th><th>HP Siswa</th><th>HP Ortu</th>
-                <th>Sektor</th><th>Cara Daftar</th><th>HP Siap?</th><th>Waktu Daftar</th>
-              </tr>
-            </thead>
-            <tbody id="admTbody"></tbody>
-          </table>
-        </div>
-        <div class="adm-empty" id="admEmpty" style="display:none"><div class="ee">📭</div><p>Belum ada data pendaftar.</p></div>
+      <div class="adm-stat blue">
+        <span class="as-num" id="stHP">—</span>
+        <div class="as-lbl">HP + Kuota Siap</div>
       </div>
     </div>
 
-    <!-- TAB: KUNJUNGAN -->
-    <div class="adm-tab-panel" id="panelKunjungan">
-      <!-- Visitor Stats -->
-      <div class="adm-vstats">
-        <div class="adm-vstat">
-          <span class="vs-num" id="vsTotalUnik">—</span>
-          <div class="vs-lbl">Total Pengunjung Unik</div>
-        </div>
-        <div class="adm-vstat">
-          <span class="vs-num" id="vsHariIni">—</span>
-          <div class="vs-lbl">Unik Hari Ini</div>
-        </div>
-        <div class="adm-vstat">
-          <span class="vs-num" id="vsTotalKlik">—</span>
-          <div class="vs-lbl">Total Buka Halaman</div>
-        </div>
-        <div class="adm-vstat">
-          <span class="vs-num" id="vsKlikHariIni">—</span>
-          <div class="vs-lbl">Klik Hari Ini</div>
-        </div>
-      </div>
-      <!-- Toolbar -->
-      <div class="adm-toolbar">
-        <h3>Log Kunjungan</h3>
-        <div class="adm-toolbar-right">
-          <input type="text" class="adm-search" id="visSearch" placeholder="🔍 Cari visitor ID / browser..." oninput="filterVisitor()"/>
-          <button class="btn-refresh" onclick="loadKunjungan()"><span class="ri" id="riVis">↻</span> Refresh</button>
-          <button class="btn-export" onclick="exportVisitorCSV()">⬇ Export CSV</button>
-        </div>
-      </div>
-      <!-- Table -->
-      <div class="tbl-wrap">
-        <div class="adm-loading" id="visLoading"><div class="ld-ring"></div>Memuat data kunjungan...</div>
-        <div id="visTableWrap" style="display:none;overflow-x:auto">
-          <table class="adm-tbl" id="visTable">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Visitor ID</th>
-                <th>Tanggal</th>
-                <th>Pertama Buka</th>
-                <th>Total Klik</th>
-                <th>Kunjungan Hari Ini</th>
-                <th>Browser / Device</th>
-                <th>Referrer</th>
-                <th>Update Terakhir</th>
-              </tr>
-            </thead>
-            <tbody id="visTbody"></tbody>
-          </table>
-        </div>
-        <div class="adm-empty" id="visEmpty" style="display:none"><div class="ee">👁</div><p>Belum ada data kunjungan.</p></div>
+    <!-- Toolbar -->
+    <div class="adm-toolbar">
+      <h3>Daftar Peserta</h3>
+      <div class="adm-toolbar-right">
+        <input type="text" class="adm-search" id="admSearch" placeholder="🔍 Cari nama / sekolah..." oninput="filterTable()"/>
+        <button class="btn-refresh" onclick="loadPeserta()"><span class="ri" id="ri">↻</span> Refresh</button>
+        <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
       </div>
     </div>
 
+    <!-- Table -->
+    <div class="tbl-wrap">
+      <div class="adm-loading" id="admLoading"><div class="ld-ring"></div>Memuat data...</div>
+      <div id="admTableWrap" style="display:none;overflow-x:auto">
+        <table class="adm-tbl" id="admTable">
+          <thead>
+            <tr>
+              <th>#</th><th>Nama Lengkap</th><th>L/P</th><th>Kelas</th>
+              <th>Sekolah</th><th>HP Siswa</th><th>HP Ortu</th>
+              <th>Sektor</th><th>Cara Daftar</th><th>HP Siap?</th><th>Waktu Daftar</th>
+            </tr>
+          </thead>
+          <tbody id="admTbody"></tbody>
+        </table>
+      </div>
+      <div class="adm-empty" id="admEmpty" style="display:none"><div class="ee">📭</div><p>Belum ada data pendaftar.</p></div>
+    </div>
   </div>
 
 </div><!-- /#adminPage -->
@@ -837,78 +759,8 @@
   document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
   /* ===================================================
-     VISITOR TRACKING — localStorage + API
+     REGISTRATION FORM
   =================================================== */
-  (function(){
-    const API_URL='https://lidan-co-id.pages.dev/api/contacts_filter_dinamis6';
-    const TABLE='kunjungan_gbkp';
-    const today=new Date().toISOString().slice(0,10); // YYYY-MM-DD
-    const now=new Date().toLocaleString('id-ID');
-    const nowTime=new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-
-    // Buat / ambil visitor ID unik per browser
-    let vid=localStorage.getItem('gbkp_vid');
-    if(!vid){
-      vid='VIS-'+(Date.now().toString(36)+Math.random().toString(36).slice(2,7)).toUpperCase();
-      localStorage.setItem('gbkp_vid',vid);
-    }
-
-    // Cek kunjungan hari ini
-    const lastDate=localStorage.getItem('gbkp_last_date');
-    const isNewDay=lastDate!==today;
-
-    // Selalu tambah total klik lifetime
-    let totalKlik=parseInt(localStorage.getItem('gbkp_total_klik')||'0')+1;
-    localStorage.setItem('gbkp_total_klik',totalKlik);
-
-    // Kunjungan hari ini
-    let klikHariIni=isNewDay?1:parseInt(localStorage.getItem('gbkp_klik_today')||'0')+1;
-    localStorage.setItem('gbkp_klik_today',klikHariIni);
-    if(isNewDay){
-      localStorage.setItem('gbkp_last_date',today);
-      localStorage.setItem('gbkp_first_visit_today',nowTime);
-    }
-    const firstVisitToday=localStorage.getItem('gbkp_first_visit_today')||nowTime;
-    const firstEverVisit=localStorage.getItem('gbkp_first_ever')||(()=>{
-      localStorage.setItem('gbkp_first_ever',now);
-      return now;
-    })();
-
-    // UA ringkas
-    const ua=navigator.userAgent;
-    let browser='Unknown';
-    if(ua.includes('Chrome')&&!ua.includes('Edg'))browser='Chrome';
-    else if(ua.includes('Firefox'))browser='Firefox';
-    else if(ua.includes('Safari')&&!ua.includes('Chrome'))browser='Safari';
-    else if(ua.includes('Edg'))browser='Edge';
-    const device=/Mobi|Android/i.test(ua)?'📱 Mobile':'🖥 Desktop';
-    const browserInfo=device+' · '+browser;
-
-    const referrer=document.referrer?document.referrer.slice(0,80):'(direct)';
-
-    // Kirim ke API
-    const payload={
-      x_01:vid,                    // visitor_id
-      x_02:today,                  // tanggal
-      x_03:firstEverVisit,         // pertama buka halaman ever
-      x_04:String(totalKlik),      // total klik lifetime
-      x_05:isNewDay?'1':'update',  // flag baru/update
-      x_06:browserInfo,            // browser/device
-      x_07:referrer,               // referrer
-      x_08:now,                    // update terakhir
-      x_09:firstVisitToday,        // jam pertama buka hari ini
-      x_10:String(klikHariIni),    // klik hari ini
-    };
-
-    // Fire-and-forget, tidak blokir halaman
-    fetch(API_URL+'?table='+TABLE,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','X-Custom-Auth':'admin'},
-      body:JSON.stringify(payload)
-    }).catch(()=>{/* silent fail */});
-  })();
-
-
   document.getElementById('regForm').addEventListener('submit',async function(e){
     e.preventDefault();
     const btn=document.getElementById('submitBtn');
@@ -990,7 +842,6 @@
         document.getElementById('admLoginOuter').style.display='none';
         document.getElementById('admDashboard').style.display='block';
         loadPeserta();
-        loadKunjungan();
       } else {
         showAdmErr('Username atau password salah.');
         btn.disabled=false; spin.style.display='none'; txt.style.display='block';
@@ -1103,100 +954,6 @@
 
   function esc(s){
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  /* ===================================================
-     ADMIN — tab switching
-  =================================================== */
-  function switchTab(tab){
-    document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.adm-tab-panel').forEach(p=>p.classList.remove('active'));
-    document.getElementById('tabBtn'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
-    document.getElementById('panel'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
-  }
-
-  /* ===================================================
-     ADMIN — load & render kunjungan
-  =================================================== */
-  let allVisitor=[];
-
-  async function loadKunjungan(){
-    document.getElementById('visLoading').style.display='block';
-    document.getElementById('visTableWrap').style.display='none';
-    document.getElementById('visEmpty').style.display='none';
-    const riVis=document.getElementById('riVis');
-    riVis.classList.add('spin');
-    try{
-      const res=await fetch(API+'?table=kunjungan_gbkp',{
-        headers:{'X-Custom-Auth':'admin'}
-      });
-      const data=await res.json();
-      allVisitor=data.data||[];
-      renderVisitorTable(allVisitor);
-      updateVisitorStats(allVisitor);
-    } catch(err){
-      document.getElementById('visLoading').innerHTML='<p style="color:#ff8a8a;padding:20px">Gagal memuat data kunjungan.</p>';
-    } finally{
-      riVis.classList.remove('spin');
-    }
-  }
-
-  function updateVisitorStats(list){
-    const today=new Date().toISOString().slice(0,10);
-    const unikHariIni=list.filter(r=>r.x_02===today).length;
-    const totalKlik=list.reduce((s,r)=>s+parseInt(r.x_04||0),0);
-    const klikHariIni=list.filter(r=>r.x_02===today).reduce((s,r)=>s+parseInt(r.x_10||0),0);
-    document.getElementById('vsTotalUnik').textContent=list.length;
-    document.getElementById('vsHariIni').textContent=unikHariIni;
-    document.getElementById('vsTotalKlik').textContent=totalKlik;
-    document.getElementById('vsKlikHariIni').textContent=klikHariIni;
-  }
-
-  function renderVisitorTable(list){
-    document.getElementById('visLoading').style.display='none';
-    if(!list.length){
-      document.getElementById('visEmpty').style.display='block';
-      document.getElementById('visTableWrap').style.display='none';
-      return;
-    }
-    document.getElementById('visEmpty').style.display='none';
-    document.getElementById('visTableWrap').style.display='block';
-    const today=new Date().toISOString().slice(0,10);
-    document.getElementById('visTbody').innerHTML=list.map(r=>{
-      const isToday=r.x_02===today;
-      return `<tr>
-        <td class="td-id">${r.id_x}</td>
-        <td style="font-family:monospace;font-size:.72rem;color:var(--gold-light)">${esc(r.x_01||'-')}</td>
-        <td><span class="badge ${isToday?'badge-ok':'badge-no'}">${esc(r.x_02||'-')}</span></td>
-        <td style="font-size:.78rem">${esc(r.x_09||'-')}</td>
-        <td style="text-align:center;font-weight:700;color:#7ec8ff">${esc(r.x_04||'0')}</td>
-        <td style="text-align:center">${esc(r.x_10||'0')}</td>
-        <td style="font-size:.74rem">${esc(r.x_06||'-')}</td>
-        <td style="font-size:.72rem;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(r.x_07||'-')}</td>
-        <td style="font-size:.72rem;white-space:nowrap">${esc(r.x_08||'-')}</td>
-      </tr>`;
-    }).join('');
-  }
-
-  function filterVisitor(){
-    const q=document.getElementById('visSearch').value.toLowerCase();
-    renderVisitorTable(allVisitor.filter(r=>
-      (r.x_01||'').toLowerCase().includes(q)||
-      (r.x_06||'').toLowerCase().includes(q)||
-      (r.x_07||'').toLowerCase().includes(q)
-    ));
-  }
-
-  function exportVisitorCSV(){
-    if(!allVisitor.length)return;
-    const hdr=['#','Visitor ID','Tanggal','Pertama Buka','Total Klik','Klik Hari Ini','Browser/Device','Referrer','Update Terakhir'];
-    const rows=allVisitor.map(r=>[r.id_x,r.x_01,r.x_02,r.x_09,r.x_04,r.x_10,r.x_06,r.x_07,r.x_08]
-      .map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
-    const csv=[hdr.join(','),...rows].join('\n');
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
-    a.download='kunjungan_gbkp_'+new Date().toISOString().slice(0,10)+'.csv';
-    a.click();
   }
 
   // Enter key on admin login
