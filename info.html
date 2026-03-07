@@ -503,6 +503,112 @@
       .cd-box .cd-num { font-size: 1.8rem; min-width: 56px; padding: 6px 8px; }
       .cd-colon { font-size: 1.6rem; }
     }
+
+    /* ======= ADMIN PAGE ======= */
+    #admPage {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #080f1e;
+      overflow-y: auto;
+    }
+
+    /* Login */
+    .adm-login-outer { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:30px 20px; }
+    .adm-login-card  { background:rgba(255,255,255,.04); border:1px solid rgba(201,148,26,.25); border-radius:22px; padding:44px 38px; width:100%; max-width:400px; }
+    .adm-login-logo  { text-align:center; font-size:2.2rem; margin-bottom:8px; }
+    .adm-login-title { font-family:'Playfair Display',serif; font-size:1.45rem; font-weight:700; color:var(--gold-light); text-align:center; margin-bottom:4px; }
+    .adm-login-sub   { font-size:.76rem; color:rgba(255,255,255,.3); text-align:center; margin-bottom:28px; }
+    .adm-fg          { margin-bottom:15px; }
+    .adm-fg label    { display:block; font-size:.72rem; font-weight:600; color:rgba(255,255,255,.4); letter-spacing:.1em; text-transform:uppercase; margin-bottom:7px; }
+    .adm-fg input    { width:100%; padding:12px 15px; background:rgba(255,255,255,.06); border:1px solid rgba(201,148,26,.2); border-radius:10px; font-family:'DM Sans',sans-serif; font-size:.92rem; color:#fff; outline:none; transition:border-color .2s,box-shadow .2s; }
+    .adm-fg input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,148,26,.15); }
+    .adm-fg input::placeholder { color:rgba(255,255,255,.18); }
+    .adm-login-btn   { width:100%; padding:13px; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--navy); font-family:'DM Sans',sans-serif; font-size:.95rem; font-weight:700; border:none; border-radius:10px; cursor:pointer; transition:transform .2s,box-shadow .2s,opacity .2s; box-shadow:0 6px 20px rgba(201,148,26,.3); display:flex; align-items:center; justify-content:center; gap:8px; margin-top:8px; }
+    .adm-login-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 10px 28px rgba(201,148,26,.45); }
+    .adm-login-btn:disabled { opacity:.8; cursor:not-allowed; }
+    .adm-login-err   { display:none; background:rgba(224,85,85,.12); border:1px solid rgba(224,85,85,.4); border-radius:10px; padding:11px 14px; font-size:.82rem; color:#ff8a8a; text-align:center; margin-top:14px; }
+    .adm-back        { display:block; text-align:center; margin-top:16px; font-size:.76rem; color:rgba(255,255,255,.22); cursor:pointer; transition:color .2s; }
+    .adm-back:hover  { color:rgba(255,255,255,.5); }
+
+    /* Dashboard */
+    .adm-dash        { display:none; padding:28px 22px 60px; max-width:1100px; margin:0 auto; }
+    .adm-topbar      { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-bottom:18px; border-bottom:1px solid rgba(201,148,26,.15); margin-bottom:26px; }
+    .adm-topbar-l    { display:flex; align-items:center; gap:14px; }
+    .adm-topbar-l .at-logo { font-size:1.4rem; }
+    .adm-topbar-l h2 { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--gold-light); }
+    .adm-topbar-l p  { font-size:.72rem; color:rgba(255,255,255,.3); margin-top:2px; }
+    .adm-topbar-r    { display:flex; gap:10px; }
+    .btn-og          { background:transparent; border:1px solid rgba(201,148,26,.3); color:rgba(240,192,64,.65); font-family:'DM Sans',sans-serif; font-size:.74rem; padding:8px 16px; border-radius:50px; cursor:pointer; transition:all .2s; }
+    .btn-og:hover    { border-color:var(--gold); color:var(--gold-light); }
+    .btn-red         { background:transparent; border:1px solid rgba(255,100,100,.2); color:rgba(255,130,130,.55); font-family:'DM Sans',sans-serif; font-size:.74rem; padding:8px 16px; border-radius:50px; cursor:pointer; transition:all .2s; }
+    .btn-red:hover   { border-color:#ff6464; color:#ff9999; }
+
+    /* Visitor stats */
+    .adm-vstats      { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:22px; }
+    .adm-vstat       { background:rgba(255,255,255,.04); border:1px solid rgba(124,200,255,.14); border-radius:12px; padding:16px 14px; text-align:center; }
+    .adm-vstat .vn   { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:#7ec8ff; display:block; line-height:1; }
+    .adm-vstat .vl   { font-size:.66rem; color:rgba(255,255,255,.32); margin-top:4px; letter-spacing:.08em; text-transform:uppercase; }
+    .adm-vstat.gold  .vn { color:var(--gold-light); }
+    .adm-vstat.green .vn { color:#6ee09e; }
+
+    /* Source badge */
+    .badge-rem { background:rgba(240,192,64,.12); border:1px solid rgba(240,192,64,.3); color:var(--gold-light); }
+    .badge-mai { background:rgba(45,157,90,.12); border:1px solid rgba(45,157,90,.3); color:#6ee09e; }
+    .badge-unk { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.4); }
+
+    /* Toolbar */
+    .adm-toolbar     { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+    .adm-toolbar h3  { font-family:'Playfair Display',serif; font-size:1rem; color:#fff; }
+    .adm-toolbar-r   { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .adm-search      { padding:9px 14px; background:rgba(255,255,255,.05); border:1px solid rgba(201,148,26,.18); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.82rem; color:#fff; outline:none; width:200px; transition:border-color .2s; }
+    .adm-search:focus { border-color:var(--gold); }
+    .adm-search::placeholder { color:rgba(255,255,255,.2); }
+    .btn-rf          { background:rgba(201,148,26,.1); border:1px solid rgba(201,148,26,.22); color:var(--gold); font-size:.76rem; font-family:'DM Sans',sans-serif; padding:9px 13px; border-radius:8px; cursor:pointer; transition:background .2s; display:flex; align-items:center; gap:5px; }
+    .btn-rf:hover    { background:rgba(201,148,26,.2); }
+    .ri              { display:inline-block; transition:transform .4s; }
+    .ri.spin         { animation:spin .7s linear infinite; }
+    .btn-ex          { background:rgba(26,107,60,.15); border:1px solid rgba(45,157,90,.22); color:#6ee09e; font-family:'DM Sans',sans-serif; font-size:.76rem; padding:9px 13px; border-radius:8px; cursor:pointer; transition:background .2s; }
+    .btn-ex:hover    { background:rgba(26,107,60,.28); }
+    @keyframes spin  { to { transform:rotate(360deg); } }
+
+    /* Filter tabs */
+    .filter-tabs     { display:flex; gap:6px; margin-bottom:14px; }
+    .ftab            { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.4); font-family:'DM Sans',sans-serif; font-size:.74rem; padding:6px 14px; border-radius:50px; cursor:pointer; transition:all .2s; }
+    .ftab:hover      { border-color:var(--gold); color:var(--gold-light); }
+    .ftab.active     { background:rgba(201,148,26,.12); border-color:var(--gold); color:var(--gold-light); font-weight:600; }
+
+    /* Table */
+    .tbl-wrap        { background:rgba(255,255,255,.02); border:1px solid rgba(201,148,26,.1); border-radius:14px; overflow:hidden; }
+    .adm-tbl         { width:100%; border-collapse:collapse; font-size:.8rem; }
+    .adm-tbl thead tr { background:rgba(201,148,26,.07); border-bottom:1px solid rgba(201,148,26,.14); }
+    .adm-tbl thead th { padding:10px 12px; text-align:left; color:var(--gold); font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:.66rem; white-space:nowrap; }
+    .adm-tbl tbody tr { border-bottom:1px solid rgba(255,255,255,.04); transition:background .15s; }
+    .adm-tbl tbody tr:last-child { border-bottom:none; }
+    .adm-tbl tbody tr:hover { background:rgba(255,255,255,.04); }
+    .adm-tbl tbody td { padding:10px 12px; color:rgba(255,255,255,.75); vertical-align:middle; }
+    .td-id           { color:rgba(255,255,255,.25) !important; font-size:.7rem !important; }
+    .badge           { display:inline-block; font-size:.66rem; padding:2px 9px; border-radius:50px; }
+    .badge-ok        { background:rgba(45,157,90,.18); border:1px solid rgba(45,157,90,.35); color:#6ee09e; }
+    .badge-no        { background:rgba(224,85,85,.1); border:1px solid rgba(224,85,85,.25); color:#ff9999; }
+    .adm-loading     { text-align:center; padding:48px 20px; color:rgba(255,255,255,.3); font-size:.86rem; }
+    .adm-loading .ld-ring { width:24px; height:24px; border:3px solid rgba(201,148,26,.2); border-top-color:var(--gold); border-radius:50%; animation:spin .7s linear infinite; margin:0 auto 10px; }
+    .adm-empty       { text-align:center; padding:48px 20px; color:rgba(255,255,255,.26); }
+    .adm-empty .ee   { font-size:2.2rem; margin-bottom:8px; }
+
+    /* Admin link di footer */
+    .adm-trigger     { background:transparent; border:none; color:rgba(255,255,255,.1); font-size:.62rem; cursor:pointer; letter-spacing:.1em; font-family:'DM Sans',sans-serif; margin-top:16px; display:inline-block; transition:color .2s; }
+    .adm-trigger:hover { color:rgba(255,255,255,.35); }
+
+    @media (max-width: 640px) {
+      .adm-vstats    { grid-template-columns: 1fr 1fr; }
+      .adm-dash      { padding: 20px 14px 50px; }
+      .adm-search    { width: 100%; }
+      .adm-tbl       { font-size: .72rem; }
+      .adm-tbl thead th, .adm-tbl tbody td { padding: 8px 9px; }
+      .adm-login-card { padding: 30px 20px; }
+    }
   </style>
 </head>
 <body>
@@ -624,9 +730,123 @@
         <a href="https://minat-bakat.gbkp.my.id/">minat-bakat.gbkp.my.id</a>
         &nbsp;·&nbsp; Halaman Pengingat Kegiatan
       </p>
+      <button class="adm-trigger" onclick="showAdm()" title="Admin">· · ·</button>
     </footer>
 
   </main>
+
+  <!-- ============================================================ -->
+  <!--  ADMIN PAGE                                                   -->
+  <!-- ============================================================ -->
+  <div id="admPage">
+
+    <!-- LOGIN -->
+    <div class="adm-login-outer" id="admLoginOuter">
+      <div class="adm-login-card">
+        <div class="adm-login-logo">🔐</div>
+        <div class="adm-login-title">Admin Reminder</div>
+        <div class="adm-login-sub">GBKP Runggun Bambu Raya · Halaman Pengingat</div>
+        <div class="adm-fg">
+          <label>Username</label>
+          <input type="text" id="admUser" placeholder="Username" autocomplete="username"/>
+        </div>
+        <div class="adm-fg">
+          <label>Password</label>
+          <input type="password" id="admPass" placeholder="Password" autocomplete="current-password"/>
+        </div>
+        <button class="adm-login-btn" id="admLoginBtn" onclick="doLogin()">
+          <span id="admBtnTxt">Masuk →</span>
+          <span id="admSpinner" style="display:none;width:18px;height:18px;border:3px solid rgba(13,31,60,.3);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;"></span>
+        </button>
+        <div class="adm-login-err" id="admErr"></div>
+        <span class="adm-back" onclick="hideAdm()">← Kembali ke halaman reminder</span>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="adm-dash" id="admDash">
+
+      <!-- Topbar -->
+      <div class="adm-topbar">
+        <div class="adm-topbar-l">
+          <span class="at-logo">📊</span>
+          <div>
+            <h2>Dashboard Kunjungan</h2>
+            <p>Halaman Reminder · kunjungan_gbkp</p>
+          </div>
+        </div>
+        <div class="adm-topbar-r">
+          <button class="btn-og" onclick="hideAdm()">← Kembali</button>
+          <button class="btn-red" onclick="doLogout()">Keluar ↩</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="adm-vstats">
+        <div class="adm-vstat">
+          <span class="vn" id="vsAll">—</span>
+          <div class="vl">Total Pengunjung Unik</div>
+        </div>
+        <div class="adm-vstat gold">
+          <span class="vn" id="vsRem">—</span>
+          <div class="vl">Dari Halaman Reminder</div>
+        </div>
+        <div class="adm-vstat">
+          <span class="vn" id="vsToday">—</span>
+          <div class="vl">Unik Hari Ini</div>
+        </div>
+        <div class="adm-vstat green">
+          <span class="vn" id="vsTotalKlik">—</span>
+          <div class="vl">Total Buka Halaman</div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="adm-toolbar">
+        <h3>Log Kunjungan</h3>
+        <div class="adm-toolbar-r">
+          <input type="text" class="adm-search" id="visSearch" placeholder="🔍 Cari visitor ID / browser..." oninput="filterVis()"/>
+          <button class="btn-rf" onclick="loadVis()"><span class="ri" id="riVis">↻</span> Refresh</button>
+          <button class="btn-ex" onclick="exportCSV()">⬇ Export CSV</button>
+        </div>
+      </div>
+
+      <!-- Filter source tabs -->
+      <div class="filter-tabs">
+        <button class="ftab active" id="ftAll"      onclick="setFilter('all')">Semua</button>
+        <button class="ftab"        id="ftReminder" onclick="setFilter('reminder')">🔔 Reminder</button>
+        <button class="ftab"        id="ftMain"     onclick="setFilter('main')">📄 Utama</button>
+      </div>
+
+      <!-- Table -->
+      <div class="tbl-wrap">
+        <div class="adm-loading" id="visLoading"><div class="ld-ring"></div>Memuat data kunjungan...</div>
+        <div id="visTblWrap" style="display:none;overflow-x:auto">
+          <table class="adm-tbl">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Visitor ID</th>
+                <th>Sumber</th>
+                <th>Tanggal</th>
+                <th>Pertama Buka</th>
+                <th>Total Klik</th>
+                <th>Klik Hari Ini</th>
+                <th>Browser / Device</th>
+                <th>Referrer</th>
+                <th>Update Terakhir</th>
+              </tr>
+            </thead>
+            <tbody id="visTbody"></tbody>
+          </table>
+        </div>
+        <div class="adm-empty" id="visEmpty" style="display:none">
+          <div class="ee">👁</div><p>Belum ada data kunjungan.</p>
+        </div>
+      </div>
+
+    </div><!-- /.adm-dash -->
+  </div><!-- /#admPage -->
 
   <script>
     /* ============================
@@ -678,6 +898,292 @@
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    /* ============================
+       VISITOR TRACKING
+       Tabel: kunjungan_gbkp (sama dengan halaman utama)
+       Pembeda: x_05 disimpan sebagai array JSON, elemen terakhir = sumber halaman
+       Format x_05: JSON.stringify([flag_baru_hari_ini, "reminder"])
+    ============================ */
+    (function() {
+      const API_URL = 'https://lidan-co-id.pages.dev/api/contacts_filter_dinamis6';
+      const TABLE   = 'kunjungan_gbkp';
+      const SRC     = 'reminder'; // pembeda dari halaman utama ('main')
+
+      const today   = new Date().toISOString().slice(0, 10);
+      const now     = new Date().toLocaleString('id-ID');
+      const nowTime = new Date().toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+
+      // Visitor ID unik per browser (shared dengan halaman utama jika buka di browser yg sama)
+      let vid = localStorage.getItem('gbkp_vid');
+      if (!vid) {
+        vid = 'VIS-' + (Date.now().toString(36) + Math.random().toString(36).slice(2, 7)).toUpperCase();
+        localStorage.setItem('gbkp_vid', vid);
+      }
+
+      // Kunjungan per hari (per-halaman reminder)
+      const keyDate  = 'gbkp_rem_last_date';
+      const keyKlik  = 'gbkp_rem_klik_today';
+      const keyFirst = 'gbkp_rem_first_today';
+      const keyTotal = 'gbkp_rem_total_klik';
+      const keyEver  = 'gbkp_rem_first_ever';
+
+      const lastDate  = localStorage.getItem(keyDate);
+      const isNewDay  = lastDate !== today;
+
+      let totalKlik   = parseInt(localStorage.getItem(keyTotal) || '0') + 1;
+      localStorage.setItem(keyTotal, totalKlik);
+
+      let klikHariIni = isNewDay ? 1 : parseInt(localStorage.getItem(keyKlik) || '0') + 1;
+      localStorage.setItem(keyKlik, klikHariIni);
+      if (isNewDay) {
+        localStorage.setItem(keyDate,  today);
+        localStorage.setItem(keyFirst, nowTime);
+      }
+
+      const firstVisitToday = localStorage.getItem(keyFirst) || nowTime;
+      const firstEverVisit  = localStorage.getItem(keyEver) || (() => {
+        localStorage.setItem(keyEver, now);
+        return now;
+      })();
+
+      // UA ringkas
+      const ua     = navigator.userAgent;
+      let browser  = 'Unknown';
+      if      (ua.includes('Chrome') && !ua.includes('Edg')) browser = 'Chrome';
+      else if (ua.includes('Firefox'))                        browser = 'Firefox';
+      else if (ua.includes('Safari') && !ua.includes('Chrome')) browser = 'Safari';
+      else if (ua.includes('Edg'))                            browser = 'Edge';
+      const device      = /Mobi|Android/i.test(ua) ? '📱 Mobile' : '🖥 Desktop';
+      const browserInfo = device + ' · ' + browser;
+      const referrer    = document.referrer ? document.referrer.slice(0, 80) : '(direct)';
+
+      // x_05 disimpan sebagai array JSON:
+      // [flag_hari_ini, sumber_halaman]
+      // flag: '1' = kunjungan baru hari ini, 'update' = sudah pernah hari ini
+      const x05 = JSON.stringify([isNewDay ? '1' : 'update', SRC]);
+
+      const payload = {
+        x_01: vid,
+        x_02: today,
+        x_03: firstEverVisit,
+        x_04: String(totalKlik),
+        x_05: x05,               // ← array JSON: [flag, source]
+        x_06: browserInfo,
+        x_07: referrer,
+        x_08: now,
+        x_09: firstVisitToday,
+        x_10: String(klikHariIni),
+      };
+
+      fetch(API_URL + '?table=' + TABLE, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Custom-Auth': 'admin' },
+        body:    JSON.stringify(payload)
+      }).catch(() => {/* silent fail */});
+    })();
+
+
+    /* ============================
+       ADMIN — page switching
+    ============================ */
+    function showAdm() {
+      document.querySelector('.page').style.display = 'none';
+      document.getElementById('admPage').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+    function hideAdm() {
+      document.getElementById('admPage').style.display = 'none';
+      document.querySelector('.page').style.display = 'flex';
+      window.scrollTo(0, 0);
+    }
+
+    /* ============================
+       ADMIN — login / logout
+    ============================ */
+    const API = 'https://lidan-co-id.pages.dev/api/contacts_filter_dinamis6';
+    let allVis = [];
+    let activeFilter = 'all';
+
+    async function doLogin() {
+      const user = document.getElementById('admUser').value.trim();
+      const pass = document.getElementById('admPass').value.trim();
+      if (!user || !pass) { showErr('Username dan password wajib diisi.'); return; }
+      const btn  = document.getElementById('admLoginBtn');
+      const spin = document.getElementById('admSpinner');
+      const txt  = document.getElementById('admBtnTxt');
+      btn.disabled = true; spin.style.display = 'block'; txt.style.display = 'none';
+      document.getElementById('admErr').style.display = 'none';
+      try {
+        const res  = await fetch(API + '?table=admins&action=login', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Custom-Auth': 'admin', 'X-Role': 'admin' },
+          body:    JSON.stringify({ username: user, password: pass })
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('admLoginOuter').style.display = 'none';
+          document.getElementById('admDash').style.display = 'block';
+          loadVis();
+        } else {
+          showErr('Username atau password salah.');
+          btn.disabled = false; spin.style.display = 'none'; txt.style.display = 'block';
+        }
+      } catch(e) {
+        showErr('Gagal terhubung ke server. Coba lagi.');
+        btn.disabled = false; spin.style.display = 'none'; txt.style.display = 'block';
+      }
+    }
+
+    function showErr(msg) {
+      const el = document.getElementById('admErr');
+      el.textContent = msg; el.style.display = 'block';
+    }
+
+    function doLogout() {
+      document.getElementById('admDash').style.display = 'none';
+      document.getElementById('admLoginOuter').style.display = 'flex';
+      document.getElementById('admUser').value = '';
+      document.getElementById('admPass').value = '';
+      document.getElementById('admErr').style.display = 'none';
+      const btn  = document.getElementById('admLoginBtn');
+      const spin = document.getElementById('admSpinner');
+      const txt  = document.getElementById('admBtnTxt');
+      btn.disabled = false; spin.style.display = 'none'; txt.style.display = 'block';
+      allVis = [];
+      hideAdm();
+    }
+
+    /* ============================
+       ADMIN — load data kunjungan
+    ============================ */
+    async function loadVis() {
+      document.getElementById('visLoading').style.display = 'block';
+      document.getElementById('visTblWrap').style.display = 'none';
+      document.getElementById('visEmpty').style.display   = 'none';
+      const ri = document.getElementById('riVis');
+      ri.classList.add('spin');
+      try {
+        const res  = await fetch(API + '?table=kunjungan_gbkp', {
+          headers: { 'X-Custom-Auth': 'admin' }
+        });
+        const data = await res.json();
+        allVis = data.data || [];
+        updateStats(allVis);
+        renderVis(filteredVis());
+      } catch(e) {
+        document.getElementById('visLoading').innerHTML =
+          '<p style="color:#ff8a8a;padding:20px">Gagal memuat data kunjungan.</p>';
+      } finally {
+        ri.classList.remove('spin');
+      }
+    }
+
+    /* Parse x_05: bisa string lama ('1'/'update') atau array JSON ['1','reminder'] */
+    function parseX05(x05) {
+      try {
+        const arr = JSON.parse(x05);
+        if (Array.isArray(arr)) return { flag: arr[0], source: arr[1] || 'main' };
+      } catch(e) {}
+      // format lama (hanya flag string)
+      return { flag: x05, source: 'main' };
+    }
+
+    function updateStats(list) {
+      const today   = new Date().toISOString().slice(0, 10);
+      const remRows = list.filter(r => parseX05(r.x_05).source === 'reminder');
+      const todayUnik = list.filter(r => r.x_02 === today).length;
+      const totalKl   = list.reduce((s, r) => s + parseInt(r.x_04 || 0), 0);
+
+      document.getElementById('vsAll').textContent      = list.length;
+      document.getElementById('vsRem').textContent      = remRows.length;
+      document.getElementById('vsToday').textContent    = todayUnik;
+      document.getElementById('vsTotalKlik').textContent = totalKl;
+    }
+
+    function filteredVis() {
+      const q = (document.getElementById('visSearch').value || '').toLowerCase();
+      return allVis.filter(r => {
+        const src = parseX05(r.x_05).source;
+        const matchFilter = activeFilter === 'all' || src === activeFilter;
+        const matchSearch = !q ||
+          (r.x_01 || '').toLowerCase().includes(q) ||
+          (r.x_06 || '').toLowerCase().includes(q) ||
+          (r.x_07 || '').toLowerCase().includes(q);
+        return matchFilter && matchSearch;
+      });
+    }
+
+    function renderVis(list) {
+      document.getElementById('visLoading').style.display = 'none';
+      if (!list.length) {
+        document.getElementById('visEmpty').style.display   = 'block';
+        document.getElementById('visTblWrap').style.display = 'none';
+        return;
+      }
+      document.getElementById('visEmpty').style.display   = 'none';
+      document.getElementById('visTblWrap').style.display = 'block';
+      const today = new Date().toISOString().slice(0, 10);
+      document.getElementById('visTbody').innerHTML = list.map((r, i) => {
+        const isToday = r.x_02 === today;
+        const { source } = parseX05(r.x_05);
+        const srcBadge = source === 'reminder'
+          ? '<span class="badge badge-rem">🔔 Reminder</span>'
+          : source === 'main'
+            ? '<span class="badge badge-mai">📄 Utama</span>'
+            : '<span class="badge badge-unk">?</span>';
+        return `<tr>
+          <td class="td-id">${r.id_x || (i+1)}</td>
+          <td style="font-family:monospace;font-size:.7rem;color:var(--gold-light)">${esc(r.x_01||'-')}</td>
+          <td>${srcBadge}</td>
+          <td><span class="badge ${isToday?'badge-ok':'badge-no'}">${esc(r.x_02||'-')}</span></td>
+          <td style="font-size:.75rem">${esc(r.x_09||'-')}</td>
+          <td style="text-align:center;font-weight:700;color:#7ec8ff">${esc(r.x_04||'0')}</td>
+          <td style="text-align:center">${esc(r.x_10||'0')}</td>
+          <td style="font-size:.72rem">${esc(r.x_06||'-')}</td>
+          <td style="font-size:.7rem;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(r.x_07||'-')}</td>
+          <td style="font-size:.7rem;white-space:nowrap">${esc(r.x_08||'-')}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    function setFilter(f) {
+      activeFilter = f;
+      document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+      document.getElementById(f === 'all' ? 'ftAll' : f === 'reminder' ? 'ftReminder' : 'ftMain')
+              .classList.add('active');
+      renderVis(filteredVis());
+    }
+
+    function filterVis() { renderVis(filteredVis()); }
+
+    function exportCSV() {
+      if (!allVis.length) return;
+      const rows = filteredVis().map(r => {
+        const { source } = parseX05(r.x_05);
+        return [r.id_x, r.x_01, source, r.x_02, r.x_09, r.x_04, r.x_10, r.x_06, r.x_07, r.x_08]
+          .map(v => '"' + String(v||'').replace(/"/g,'""') + '"').join(',');
+      });
+      const hdr = ['#','Visitor ID','Sumber','Tanggal','Pertama Buka','Total Klik','Klik Hari Ini','Browser/Device','Referrer','Update Terakhir'];
+      const csv = [hdr.join(','), ...rows].join('\n');
+      const a   = document.createElement('a');
+      a.href    = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+      a.download = 'kunjungan_reminder_' + new Date().toISOString().slice(0,10) + '.csv';
+      a.click();
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // Enter key on login
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' &&
+          document.getElementById('admPage').style.display === 'block' &&
+          document.getElementById('admLoginOuter').style.display !== 'none') {
+        doLogin();
+      }
+    });
   </script>
 
 </body>
