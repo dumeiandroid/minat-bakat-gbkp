@@ -546,7 +546,7 @@
     .btn-red:hover   { border-color:#ff6464; color:#ff9999; }
 
     /* Visitor stats */
-    .adm-vstats      { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:22px; }
+    .adm-vstats      { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:22px; }
     .adm-vstat       { background:rgba(255,255,255,.04); border:1px solid rgba(124,200,255,.14); border-radius:12px; padding:16px 14px; text-align:center; }
     .adm-vstat .vn   { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:#7ec8ff; display:block; line-height:1; }
     .adm-vstat .vl   { font-size:.66rem; color:rgba(255,255,255,.32); margin-top:4px; letter-spacing:.08em; text-transform:uppercase; }
@@ -738,7 +738,7 @@
   <!-- ============================================================ -->
   <!--  ADMIN PAGE                                                   -->
   <!-- ============================================================ -->
-  <div id="admPage" style="display:none">
+  <div id="admPage">
 
     <!-- LOGIN -->
     <div class="adm-login-outer" id="admLoginOuter">
@@ -764,7 +764,7 @@
     </div>
 
     <!-- DASHBOARD -->
-    <div class="adm-dash" id="admDash" style="display:none">
+    <div class="adm-dash" id="admDash">
 
       <!-- Topbar -->
       <div class="adm-topbar">
@@ -791,13 +791,9 @@
           <span class="vn" id="vsRem">—</span>
           <div class="vl">Dari Halaman Reminder</div>
         </div>
-        <div class="adm-vstat gold">
-          <span class="vn" id="vsRemToday">—</span>
-          <div class="vl">🔔 Reminder Hari Ini</div>
-        </div>
         <div class="adm-vstat">
           <span class="vn" id="vsToday">—</span>
-          <div class="vl">Unik Hari Ini (Semua)</div>
+          <div class="vl">Unik Hari Ini</div>
         </div>
         <div class="adm-vstat green">
           <span class="vn" id="vsTotalKlik">—</span>
@@ -1006,7 +1002,6 @@
        ADMIN — login / logout
     ============================ */
     const API = 'https://lidan-co-id.pages.dev/api/contacts_filter_dinamis6';
-    const SESS_KEY = 'gbkp_rem_adm_logged';
     let allVis = [];
     let activeFilter = 'all';
 
@@ -1027,8 +1022,9 @@
         });
         const data = await res.json();
         if (data.success) {
-          sessionStorage.setItem(SESS_KEY, '1'); // ← simpan sesi login
-          openDashboard();
+          document.getElementById('admLoginOuter').style.display = 'none';
+          document.getElementById('admDash').style.display = 'block';
+          loadVis();
         } else {
           showErr('Username atau password salah.');
           btn.disabled = false; spin.style.display = 'none'; txt.style.display = 'block';
@@ -1039,20 +1035,12 @@
       }
     }
 
-    function openDashboard() {
-      document.getElementById('admLoginOuter').style.display = 'none';
-      document.getElementById('admDash').style.display = 'block';
-      showAdm();
-      loadVis();
-    }
-
     function showErr(msg) {
       const el = document.getElementById('admErr');
       el.textContent = msg; el.style.display = 'block';
     }
 
     function doLogout() {
-      sessionStorage.removeItem(SESS_KEY); // ← hapus sesi
       document.getElementById('admDash').style.display = 'none';
       document.getElementById('admLoginOuter').style.display = 'flex';
       document.getElementById('admUser').value = '';
@@ -1063,7 +1051,7 @@
       const txt  = document.getElementById('admBtnTxt');
       btn.disabled = false; spin.style.display = 'none'; txt.style.display = 'block';
       allVis = [];
-      hideAdm(); // ← kembali ke halaman reminder
+      hideAdm();
     }
 
     /* ============================
@@ -1102,33 +1090,14 @@
     }
 
     function updateStats(list) {
-      const today = new Date().toISOString().slice(0, 10);
+      const today   = new Date().toISOString().slice(0, 10);
+      const remRows = list.filter(r => parseX05(r.x_05).source === 'reminder');
+      const todayUnik = list.filter(r => r.x_02 === today).length;
+      const totalKl   = list.reduce((s, r) => s + parseInt(r.x_04 || 0), 0);
 
-      // Deduplicate berdasarkan visitor ID (x_01) — satu orang = satu baris unik
-      const uniqueVids      = new Set(list.map(r => r.x_01));
-      const remRows         = list.filter(r => parseX05(r.x_05).source === 'reminder');
-      const uniqueRemVids   = new Set(remRows.map(r => r.x_01));
-
-      // Unik hari ini: ambil baris hari ini, lalu unique-kan visitor ID-nya
-      const todayRows       = list.filter(r => r.x_02 === today);
-      const uniqueTodayVids = new Set(todayRows.map(r => r.x_01));
-
-      // Unik hari ini khusus reminder
-      const remTodayRows    = remRows.filter(r => r.x_02 === today);
-      const uniqueRemToday  = new Set(remTodayRows.map(r => r.x_01));
-
-      // Total klik: jumlah x_04 tertinggi per visitor (hindari double count update)
-      const maxKlikPerVid = {};
-      list.forEach(r => {
-        const k = parseInt(r.x_04 || 0);
-        if (!maxKlikPerVid[r.x_01] || k > maxKlikPerVid[r.x_01]) maxKlikPerVid[r.x_01] = k;
-      });
-      const totalKl = Object.values(maxKlikPerVid).reduce((s, v) => s + v, 0);
-
-      document.getElementById('vsAll').textContent       = uniqueVids.size;
-      document.getElementById('vsRem').textContent       = uniqueRemVids.size;
-      document.getElementById('vsRemToday').textContent  = uniqueRemToday.size;
-      document.getElementById('vsToday').textContent     = uniqueTodayVids.size;
+      document.getElementById('vsAll').textContent      = list.length;
+      document.getElementById('vsRem').textContent      = remRows.length;
+      document.getElementById('vsToday').textContent    = todayUnik;
       document.getElementById('vsTotalKlik').textContent = totalKl;
     }
 
@@ -1215,11 +1184,6 @@
         doLogin();
       }
     });
-
-    // Auto-restore sesi saat refresh — semua fungsi sudah terdefinisi di sini
-    if (sessionStorage.getItem(SESS_KEY) === '1') {
-      openDashboard();
-    }
   </script>
 
 </body>
