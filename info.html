@@ -338,63 +338,6 @@
     .sch-label { font-size: .78rem; color: rgba(255,255,255,.55); }
     .sch-note  { font-size: .72rem; font-weight: 600; color: rgba(255,255,255,.75); margin-top: 4px; display: block; }
 
-    /* ======= COUNTDOWN ======= */
-    .countdown-wrap {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .countdown-label {
-      font-size: .68rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-    }
-    .cd-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .cd-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.6rem;
-      font-weight: 900;
-      color: var(--white);
-      min-width: 70px;
-      text-align: center;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(201,148,26,.25);
-      border-radius: 12px;
-      padding: 8px 10px;
-      line-height: 1;
-      transition: color .3s;
-    }
-    .cd-unit.urgent .cd-num { color: var(--gold-light); }
-    .cd-sep {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--gold);
-      margin-top: 6px;
-      animation: blink 1s step-start infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-    .cd-lbl { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); }
-
-    /* countdown expired */
-    .cd-expired {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      color: var(--gold-light);
-      font-style: italic;
-      display: none;
-    }
-
     /* ======= INFO CHIPS ======= */
     .chips {
       display: flex;
@@ -474,13 +417,91 @@
     @keyframes fade-up   { from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);} }
     @keyframes fade-down { from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);} }
 
+    /* ======= COUNTDOWN BANNER (standalone, below alert) ======= */
+    .cd-banner {
+      width: 100%;
+      max-width: 680px;
+      margin-bottom: 20px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,148,26,.3);
+      border-radius: 18px;
+      padding: 20px 28px;
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      animation: fade-down .7s ease .1s both;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+    }
+    .cd-banner-label {
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .cd-banner-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .cd-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    .cd-box .cd-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--white);
+      min-width: 72px;
+      text-align: center;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(201,148,26,.2);
+      border-radius: 12px;
+      padding: 8px 10px;
+      line-height: 1;
+      transition: color .3s, border-color .3s;
+    }
+    .cd-box.urgent .cd-num {
+      color: var(--gold-light);
+      border-color: rgba(240,192,64,.5);
+    }
+    .cd-box .cd-lbl {
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+    }
+    .cd-colon {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 18px;
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+    .cd-banner-expired {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold-light);
+      font-style: italic;
+      text-align: center;
+      display: none;
+    }
+
     /* ======= RESPONSIVE ======= */
     @media (max-width: 540px) {
       .card { padding: 32px 22px; }
       .schedule { grid-template-columns: 1fr; }
-      .countdown { gap: 10px; }
-      .cd-num { font-size: 2rem; min-width: 56px; padding: 6px 8px; }
-      .cd-sep { font-size: 1.6rem; }
+      .cd-banner { padding: 16px 18px; }
+      .cd-box .cd-num { font-size: 1.8rem; min-width: 56px; padding: 6px 8px; }
+      .cd-colon { font-size: 1.6rem; }
     }
   </style>
 </head>
@@ -503,6 +524,28 @@
       <span class="bell" aria-hidden="true">🔔</span>
       KEGIATAN BERLANGSUNG HARI INI — SABTU, 07 MARET 2026
       <span class="bell" aria-hidden="true">🔔</span>
+    </div>
+
+    <!-- COUNTDOWN BANNER -->
+    <div class="cd-banner" id="cdBanner">
+      <p class="cd-banner-label">⏳ Menghitung waktu menuju kegiatan</p>
+      <div class="cd-banner-row" id="cdRow" aria-live="polite" aria-atomic="true">
+        <div class="cd-box" id="cdH">
+          <span class="cd-num" id="h">--</span>
+          <span class="cd-lbl">Jam</span>
+        </div>
+        <span class="cd-colon" aria-hidden="true">:</span>
+        <div class="cd-box" id="cdM">
+          <span class="cd-num" id="m">--</span>
+          <span class="cd-lbl">Menit</span>
+        </div>
+        <span class="cd-colon" aria-hidden="true">:</span>
+        <div class="cd-box" id="cdS">
+          <span class="cd-num" id="s">--</span>
+          <span class="cd-lbl">Detik</span>
+        </div>
+      </div>
+      <p class="cd-banner-expired" id="cdExpired">🎉 Kegiatan sedang berlangsung sekarang!</p>
     </div>
 
     <!-- MAIN CARD -->
@@ -560,28 +603,6 @@
         </div>
       </div>
 
-      <!-- Countdown -->
-      <div class="countdown-wrap">
-        <p class="countdown-label">Menghitung waktu menuju kegiatan</p>
-        <div class="countdown" id="countdown" aria-live="polite" aria-atomic="true">
-          <div class="cd-unit" id="cdH">
-            <span class="cd-num" id="h">--</span>
-            <span class="cd-lbl">Jam</span>
-          </div>
-          <span class="cd-sep" aria-hidden="true">:</span>
-          <div class="cd-unit" id="cdM">
-            <span class="cd-num" id="m">--</span>
-            <span class="cd-lbl">Menit</span>
-          </div>
-          <span class="cd-sep" aria-hidden="true">:</span>
-          <div class="cd-unit" id="cdS">
-            <span class="cd-num" id="s">--</span>
-            <span class="cd-lbl">Detik</span>
-          </div>
-        </div>
-        <p class="cd-expired" id="cdExpired">Kegiatan sedang berlangsung 🎉</p>
-      </div>
-
       <div class="divider"></div>
 
       <!-- CTA -->
@@ -629,13 +650,13 @@
     ============================ */
     function updateCountdown() {
       const now    = new Date();
-      // Target: 7 March 2026, 14:00 WIB (UTC+7 = UTC+420min)
       const target = new Date('2026-03-07T14:00:00+07:00');
       const diff   = target - now;
 
       if (diff <= 0) {
-        document.getElementById('countdown').style.display = 'none';
+        document.getElementById('cdRow').style.display = 'none';
         document.getElementById('cdExpired').style.display = 'block';
+        document.querySelector('.cd-banner-label').style.display = 'none';
         return;
       }
 
@@ -648,10 +669,10 @@
       document.getElementById('m').textContent = String(mm).padStart(2,'0');
       document.getElementById('s').textContent = String(ss).padStart(2,'0');
 
-      // highlight when < 1 hour
       if (hh < 1) {
         document.getElementById('cdH').classList.add('urgent');
         document.getElementById('cdM').classList.add('urgent');
+        document.getElementById('cdS').classList.add('urgent');
       }
     }
 
